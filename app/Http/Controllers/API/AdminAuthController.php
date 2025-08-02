@@ -22,7 +22,8 @@ class AdminAuthController extends Controller
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        $token = $student->createToken('student-token')->plainTextToken;
+         $token = $student->createToken('admin-token', ['guard:admin'])->plainTextToken;
+
 
         return response()->json([
             'user' => $student,
@@ -32,12 +33,12 @@ class AdminAuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
-        return response()->json(['message' => 'Logged out']);
+         auth('admin')->user()->currentAccessToken()->delete();
+         return response()->json(['message' => 'Logged out']);
     }
 
     public function me(Request $request)
     {
-        return response()->json($request->user());
+        return response()->json(auth('admin')->user());
     }
 }
