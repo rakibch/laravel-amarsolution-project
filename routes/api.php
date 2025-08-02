@@ -24,8 +24,5 @@ Route::prefix('admin')->controller(AdminAuthController::class)->group(function (
     });
 });
 
-Route::middleware('auth:admin')->group(function () {
-    Route::post('/students/import', [StudentImportExportController::class, 'import']);
-    Route::get('/students/export', [StudentImportExportController::class, 'export']);
-});
+
 
